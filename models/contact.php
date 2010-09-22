@@ -42,6 +42,34 @@ class Contact extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'category' => array(
+			'rule' => array('notEmpty'),
+			'message' => 'いずれかひとつを選択してください',
+			'allowEmpty' => false,
+		),
+		'prefecture' => array(
+			'rule' => array('isPrefecture', 'prefecture'),
+			'message' => '都道府県を選択してください',
+		),		
+		'address1' => array(
+			'rule' => array('notEmpty'),
+			'message' => '市町村・番地を入力してください',
+			'allowEmpty' => false,
+		),
+		'zipcode' => array(
+			'rule' => array('postal', '/\\A\\b[0-9]{3}(?:-[0-9]{4})?\\b\\z/i', null),
+			'message' => '郵便番号の形式が正しくありません。'
+		),
+		'phone' => array(
+			'phone' => array(
+				'rule' => array('phone', '/\d{2,4}-\d{2,4}-\d{4}/', null), 
+				'message' => '電話番号の形式で入力してください。（例）03-5555-5555。'
+			),
+			'notEmpty' => array(
+				'rule' => 'notEmpty',
+				'message' => '電話番号を入力してください。',
+			),
+		),
 		'statement' => array(
 			'between' => array(
 				'rule' => array('between', 10, 512),
@@ -96,5 +124,14 @@ class Contact extends AppModel {
 		}
 		return $check == $this->answerCaptcha;
 	}
+	
+	function isPrefecture($data, $target) {
+		$check = current($data);
+		if ($check == 'empty') {
+			return false;
+		}
+ 		return $check == $this->data[$this->name][$target];
+	}	
+	
 }
 ?>

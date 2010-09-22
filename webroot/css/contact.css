@@ -11,6 +11,10 @@
 	padding: 0;
 }
 
+
 /*
 	contact 
 */
+td.statement {
+	width:10px;
+}
