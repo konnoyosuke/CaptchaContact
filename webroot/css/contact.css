@@ -1,0 +1,16 @@
+/*
+	crumb list
+*/
+#topic_path li {
+	display:inline;
+}
+
+#topic_path li ul {
+	display:inline;
+	margin: 0;
+	padding: 0;
+}
+
+/*
+	contact 
+*/
